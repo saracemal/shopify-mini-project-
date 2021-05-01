@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 function SearchBar() {
+const [searchedMovies, setsearchedMovies] = useState("")
     return (
         <div>
             <h1>Search Bar</h1>
