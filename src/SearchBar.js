@@ -9,7 +9,7 @@ function SearchBar({searched, setSearched}) {
             type="text"
             placeholder=""
             value={searched}
-         
+            onChange={(e) => setSearched(e.target.value)}
          />
         
         </div>
@@ -19,4 +19,5 @@ function SearchBar({searched, setSearched}) {
 export default SearchBar;
 
 const SearchInput = styled.input`
+    border-bottom: 2px dotted black;
 `

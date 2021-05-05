@@ -24,7 +24,7 @@ const [search, setSearch] = useState('')
 
 export default SearchComponent;
 
-const SearchContainer = styled.container`
+const SearchContainer = styled.div`
 `
 
 const InfoH3 = styled.h3`
