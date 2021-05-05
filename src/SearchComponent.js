@@ -4,11 +4,17 @@ import SearchResults from './SearchResults'
 
 function SearchComponent() {
 const [results, setResults] = useState([])
+const [search, setSearch] = useState('')
 
     return (
         <div>
-            <SearchBar />
-            <SearchResults />
+            <SearchBar 
+                search={search}
+                setSearch={setSearch}
+                />
+            <SearchResults
+                results={results}
+                setResults={setResults} />
         </div>
     )
 };
