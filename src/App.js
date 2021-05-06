@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import './App.css';
 import Title from './Title.js'
 import SearchComponent from './SearchComponent.js'
+import Nominations from "./Nominations.js"
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -24,6 +25,7 @@ function App() {
     <AppBackground>
       <Title />
       <SearchComponent />
+      <Nominations />
     </AppBackground>
   );
 }

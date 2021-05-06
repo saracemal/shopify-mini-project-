@@ -28,7 +28,11 @@ const SearchContainer = styled.div`
 `
 
 const InfoH3 = styled.h3`
+    text-align: center;
+    font-family: 'Alex Brush', sans-serif;
 `
 
 const InfoP = styled.p`
+text-align: center;
+font-family: 'Montserrat Alternate', sans-serif;
 `
