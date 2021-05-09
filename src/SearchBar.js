@@ -21,4 +21,5 @@ export default SearchBar;
 const SearchInput = styled.input`
     border-bottom: 2px dotted black;
     text-family: 'Montserrat Alternates' sans-serif;
+    text-align: center;
 `

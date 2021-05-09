@@ -34,6 +34,9 @@ export default App;
 
 const AppBackground = styled.div`
   background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1)); 
-  height: 100vh;
-  width: 100vw;
+  // height: 100vh;
+  // width: 100vw;
+  text-align: center;
+  // display: flex;
+  // flex-direction: column;
 `
