@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import MovieCard from './MovieCard.js'
+import NomCard from './NomCard.js'
 import styled from 'styled-components'
 
-function Nominations({movies, nominations}) {
+function Nominations({movies, nominations, removeNomination}) {
 
 function submitNominations() {
     localStorage.setItem("noms", JSON.stringify(nominations))
@@ -13,14 +13,14 @@ function submitNominations() {
     return (
         <NominationContainer>
             <H1>Your Nominations</H1>
-            <NomCard>
-                { nominations.length === 0 ? "Nominate a movie to get started" : movies.map((movie) => 
-                    <MovieCard 
-                        key={movie.OMDBid}
-                        movie={movie}
-
-                        />)}
-            </NomCard>
+            <Card>
+                {nominations.length === 0 ? "Nominate a movie to get started" : null }
+                {nominations[0] ? <NomCard movie={nominations[0]} nominations={nominations} removeNomination={removeNomination} /> : null }
+                {nominations[1] ? <NomCard movie={nominations[1]} nominations={nominations} removeNomination={removeNomination}/> :  null}
+                {nominations[2] ? <NomCard movie={nominations[2]} nominations={nominations} removeNomination={removeNomination}/> : null }
+                {nominations[3] ? <NomCard movie={nominations[3]} nominations={nominations} removeNomination={removeNomination}/> : null }
+                {nominations[4] ? <NomCard movie={nominations[4]} nominations={nominations} removeNomination={removeNomination}/> : null }
+            </Card>
             {localStorage.getItem("submission") === 'true' ? <h3>Your submission is in! 🍿</h3> :
             (<div className="submit"> {nominations.length === 5 ? <Button onClick={submitNominations}>SUBMIT 🍿</Button> : null }
             </div>)
@@ -30,6 +30,11 @@ function submitNominations() {
 };
 
 export default Nominations;
+
+const H3 = styled.h3`
+    text-align: center;
+    font-family: 'Righteous', sans-serif;
+`
 
 const Button = styled.button`
  backface-visibility: hidden;
@@ -50,18 +55,11 @@ const Button = styled.button`
 
 `
 
-const NomCard = styled.div`
+const Card = styled.div`
     font-family: 'Righteous', sans-serif;
     text-align: center;
     // display: flex;
-    flex-direction: column;
-    background: rgba( 255, 255, 255, 0.25 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 5.0px );
-    -webkit-backdrop-filter: blur( 5.0px );
-    border-radius: 10px;
-    height: 300px;
-    width: 600px;
+   
 `
 
 const NominationContainer = styled.div`

@@ -3,7 +3,7 @@ import Nominations from './Nominations.js'
 import styled from 'styled-components'
 
 
-function SearchComponent({nominations, addNomination}) {
+function SearchComponent({nominations, addNomination, deleteNomination}) {
 const [movieResults, setMovieResults] = useState([])
 const [searched, setSearched] = useState('')
 
@@ -19,6 +19,8 @@ useEffect(() => {
     return () => 
         {isMounted = false};
 }, [searched])
+
+console.log(process.env.REACT_APP_OMDB_API_KEY)
 
 function handleMovies(movieData) {
     setMovieResults(movieData)
@@ -39,21 +41,22 @@ function handleMovies(movieData) {
                 value={searched}
                 onChange={(e) => setSearched(e.target.value)}
             />
-            <SearchResults>
-                {movieResults ? <Nominations  
+                {movieResults ? <SearchResults  
                     addNomination={addNomination}
                     movieResults={movieResults}
                     nominations={nominations}
-                     />
+                    />
                     : null}
-            </SearchResults>
         </SearchContainer>
     )
 };
 
 export default SearchComponent;
 
+//change text size below for search results
 const SearchResults = styled.div`
+    text-align: center;
+    font-family: 'Righteous', sans-serif;
 `
 
 const SearchInput = styled.input`
@@ -69,10 +72,7 @@ const SearchInput = styled.input`
 `
 
 const SearchContainer = styled.div`
-// position: absolute;
-//   left: 50%;
-//   top: 50%;
-//   transform: translate(-50%, -50%);
+
     text-align: center;
     display: flex;
     flex-direction: column;
