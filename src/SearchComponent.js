@@ -1,28 +1,72 @@
-import React, {useState} from 'react';
-import SearchBar from './SearchBar.js'
-import SearchResults from './SearchResults'
+import React, {useEffect, useState} from 'react';
+import Nominations from './Nominations.js'
 import styled from 'styled-components'
 
-function SearchComponent() {
-const [results, setResults] = useState([])
-const [search, setSearch] = useState('')
+
+function SearchComponent({nominations, addNomination}) {
+const [movieResults, setMovieResults] = useState([])
+const [searched, setSearched] = useState('')
+
+
+useEffect(() => {
+    let isMounted = true;
+
+    fetch(`https://www.omdbapi.com/?s=${searched}&type=movie&apikey=${process.env.REACT_APP_OMDB_API_KEY}`)
+    .then((r) => r.json())
+    .then((movieData) => {
+        if (isMounted) handleMovies(movieData.Search) 
+    })
+    return () => 
+        {isMounted = false};
+}, [searched])
+
+function handleMovies(movieData) {
+    setMovieResults(movieData)
+}
+
+// const searchedMovies = movieResults.filter((movie) => {
+//     return movie.title.toLowerCase().includes(searched.toLowerCase())
+// })
 
     return (
         <SearchContainer>
                 <InfoH1>Welcome to The Shoppies</InfoH1>
-                <InfoP>below, search and nominate up to 5 films to be nominated for our awards</InfoP>
-            <SearchBar 
-                search={search}
-                setSearch={setSearch}
-                />
-            <SearchResults
-                results={results}
-                setResults={setResults} />
+                <InfoH3>Below, search and nominate up to 5 films to be nominated for our awards.</InfoH3>
+           
+            <SearchInput
+                type="text"
+                placeholder="🎬 search for movies"
+                value={searched}
+                onChange={(e) => setSearched(e.target.value)}
+            />
+            <SearchResults>
+                {movieResults ? <Nominations  
+                    addNomination={addNomination}
+                    movieResults={movieResults}
+                    nominations={nominations}
+                     />
+                    : null}
+            </SearchResults>
         </SearchContainer>
     )
 };
 
 export default SearchComponent;
+
+const SearchResults = styled.div`
+`
+
+const SearchInput = styled.input`
+    width: 250px;
+    height: 30px;
+    border-bottom: 2px dotted black;
+    // text-family: 'Montserrat Alternates' sans-serif;
+    text-align: center;
+    position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+`
 
 const SearchContainer = styled.div`
 // position: absolute;
@@ -46,7 +90,7 @@ const InfoH1 = styled.h1`
     font-family: 'Alex Brush', sans-serif;
 `
 
-const InfoP = styled.p`
-text-align: center;
-font-family: 'Montserrat Alternate', sans-serif;
+const InfoH3 = styled.h3`
+    text-align: center;
+    font-family: 'Righteous', sans-serif;
 `

@@ -6,7 +6,7 @@ import SearchComponent from './SearchComponent.js'
 import Nominations from "./Nominations.js"
 
 function App() {
-  const [movies, setMovies] = useState([])
+  const [nominations, setNominations] = useState([])
 
   //const handleNomination = {
     //if no nominations yet, add
@@ -21,18 +21,43 @@ function App() {
   //   })
   // }, [])
 
+  useEffect(() => {
+    if (localStorage.getItem("noms")){
+      const localNoms = JSON.parse(localStorage.getItem("noms"))
+      setNominations(localNoms)
+    }
+  }, [])
+
+  function deleteNomination(movieObj) {
+    const updatedNoms = nominations.filter((nominee) => 
+      nominee.imdbID !== movieObj.imdbID)
+    setNominations(updatedNoms)
+    localStorage.setItem("noms", JSON.stringify(updatedNoms))
+  }
+
+  function addNomination(newNom) {
+    setNominations([newNom, ...nominations])
+    localStorage.setItem("noms", JSON.stringify([newNom, ...nominations]))
+  }
+
   return (
-    <AppBackground>
+    <AppContainer>
       <Title />
-      <SearchComponent />
-      <Nominations />
-    </AppBackground>
+      <SearchComponent 
+        nominations={nominations}
+        addNomination={addNomination}
+        deleteNomination={deleteNomination}/>
+      <Nominations 
+        nominations={nominations}
+        setNominations={setNominations} 
+        deleteNomination={deleteNomination}/>
+    </AppContainer>
   );
 }
 
 export default App;
 
-const AppBackground = styled.div`
+const AppContainer = styled.div`
   background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1)); 
   // height: 100vh;
   // width: 100vw;

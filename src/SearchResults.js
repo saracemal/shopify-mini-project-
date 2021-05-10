@@ -1,11 +1,9 @@
 import React, {useState} from 'react'
 
-function SearchResults() {
-const [results, setResults] = useState([])
+function SearchResults({movieResults, addNom}) {
 
     return (
         <div>
-            <p>search results</p>
         </div>
     )
 };
